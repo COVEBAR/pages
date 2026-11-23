@@ -3,11 +3,16 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://COVEBAR.github.io/pages",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "save-json-api": "node ./src/server/scripts/save-json-api.js",
+    "build": "tsc && vite build && npm run save-json-api && shx cp build/index.html build/404.html",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "serve": "json-server --watch ./src/server/db/index.cjs --routes ./src/server/routes.json --port 3001",
+    "predeploy": "rm -rf build && npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "react": "^19.3.1",
@@ -22,7 +27,11 @@
     "eslint": "^10.14.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.7",
+    "gh-pages": "^6.3.0",
     "globals": "^17.13.0",
+    "json-server": "^0.17.4",
+    "node-fs": "^0.1.7",
+    "shx": "^0.4.0",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.72.1",
     "vite": "^8.3.6"
